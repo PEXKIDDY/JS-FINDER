@@ -21,7 +21,9 @@ https://pexkiddy.github.io/JS-FINDER/
 
  Flags filenames containing high-risk keywords.
 
-  Displays results inside styled terminal panels.
+ Displays results inside styled terminal panels.
+
+ Click on urls to inspect the js and find the sensitive info 
  
 # Disclaimer
 
@@ -30,3 +32,8 @@ https://pexkiddy.github.io/JS-FINDER/
 This tool is intended for educational and authorized security testing only.
 Do not use it against systems you do not own or have permission to test.
 
+# Results 
+
+<img width="1025" height="431" alt="image" src="https://github.com/user-attachments/assets/95e617db-02e7-4c9b-8de1-04ba094cfd3d" />
+
+# HAPPY HACKING THANK ME LATER !!
