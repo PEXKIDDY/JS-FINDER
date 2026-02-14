@@ -9,6 +9,8 @@ JS-FINDER is a lightweight browser-based JavaScript discovery tool built for edu
 
 # Live Demo
 
+CLICK BELOW FOR USE
+
 https://pexkiddy.github.io/JS-FINDER/
 
 # How It Works
