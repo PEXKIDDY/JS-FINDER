@@ -7,6 +7,9 @@ JS-FINDER is a lightweight browser-based JavaScript discovery tool built for edu
 
 <img width="1446" height="709" alt="image" src="https://github.com/user-attachments/assets/18bb6820-9792-4b72-901a-6fac8013b96c" />
 
+<img width="1028" height="501" alt="image" src="https://github.com/user-attachments/assets/0fb00407-1668-48b4-b9c9-88fefb2b1392" />
+
+
 # Live Demo
 
 CLICK BELOW FOR USE
