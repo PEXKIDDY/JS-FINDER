@@ -22,30 +22,59 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
   background:#0b0f14;
-  color:#00ff88;
   z-index:999;
 }
 
-.logo{
-  font-size:72px;
-  font-weight:bold;
-  text-shadow:0 0 25px #00ff88;
-  animation:slide 5s linear forwards;
+.splash-terminal{
+  width:950px;
+  background:#000;
+  border-radius:12px;
+  box-shadow:
+    0 0 20px #ff0000,
+    0 0 30px #00ff88,
+    0 0 40px #00bfff;
+  display:flex;
+  flex-direction:column;
 }
 
-.sub{opacity:.7;margin-top:8px;}
-
-@keyframes slide{
-  0%{transform:translateX(-120%);opacity:0}
-  20%{opacity:1}
-  80%{transform:translateX(0)}
-  100%{transform:translateX(120%);opacity:0}
+.splash-header{
+  background:#111;
+  padding:8px 12px;
+  display:flex;
+  gap:8px;
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
 }
 
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+}
+.red{background:#ff5f56;}
+.yellow{background:#ffbd2e;}
+.green{background:#27c93f;}
 
-/* ================= LAYOUT ================= */
+.ascii{
+  white-space:pre;
+  color:#ff0000;
+  font-size:18px;
+  line-height:1.2;
+  padding:30px;
+  text-align:center;
+  text-shadow:0 0 15px #ff0000;
+}
+
+.warning{
+  text-align:center;
+  font-size:13px;
+  color:#ffaa00;
+  padding-bottom:15px;
+  opacity:.8;
+}
+
+/* ================= MAIN LAYOUT ================= */
 #app{
   display:none;
   height:100vh;
@@ -55,8 +84,7 @@ body{
   gap:28px;
 }
 
-
-/* ================= TERMINAL ================= */
+/* ================= TERMINALS ================= */
 .terminal{
   width:560px;
   height:560px;
@@ -67,8 +95,6 @@ body{
   overflow:hidden;
 }
 
-
-/* header */
 .term-header{
   background:#111;
   padding:8px 12px;
@@ -83,15 +109,6 @@ body{
   gap:8px;
 }
 
-.dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-}
-.red{background:#ff5f56;}
-.yellow{background:#ffbd2e;}
-.green{background:#27c93f;}
-
 .title{
   margin-left:10px;
   font-size:13px;
@@ -105,18 +122,14 @@ body{
 }
 .download:hover{opacity:1;}
 
-
-/* body */
 .term-body{
   padding:14px;
   flex:1;
   display:flex;
   flex-direction:column;
-  min-height:0; /* IMPORTANT FOR SCROLL */
+  min-height:0;
 }
 
-
-/* input */
 input{
   width:70%;
   padding:8px;
@@ -125,7 +138,6 @@ input{
   font-family:inherit;
 }
 
-/* button */
 button{
   padding:8px 14px;
   margin-left:6px;
@@ -133,9 +145,6 @@ button{
   border-radius:6px;
   font-family:inherit;
 }
-
-
-/* ================= OUTPUT + SCROLL FIX ================= */
 
 .output{
   margin-top:12px;
@@ -148,28 +157,12 @@ button{
   min-height:0;
 }
 
-/* Hide scrollbar Chrome/Safari/Edge */
-.output::-webkit-scrollbar{
-  width:0px;
-  height:0px;
-}
-
-/* Hide scrollbar Firefox */
-.output{
-  scrollbar-width:none;
-}
-
-/* Hide scrollbar IE */
-.output{
-  -ms-overflow-style:none;
-}
+.output::-webkit-scrollbar{width:0;height:0;}
+.output{scrollbar-width:none;-ms-overflow-style:none;}
 
 a{text-decoration:none}
 
-
-/* ================= COLORS ================= */
-
-/* LEFT ALWAYS GREEN */
+/* LEFT GREEN */
 .green-box{
   color:#00ff88;
   border:1px solid #003322;
@@ -181,21 +174,15 @@ a{text-decoration:none}
   color:#00ff88;
   background:#001a10;
 }
-.green-box a{
-  color:#00ff88 !important;
-}
+.green-box a{color:#00ff88 !important;}
 
-
-/* RIGHT DEFAULT BLUE */
+/* RIGHT BLUE */
 .blue-box{
   color:#00bfff;
   border:1px solid #003355;
   box-shadow:0 0 20px #00bfff, inset 0 0 40px #001a2b;
 }
-.blue-box a{
-  color:inherit !important;
-}
-
+.blue-box a{color:inherit !important;}
 
 /* ALERT RED */
 .alert-box{
@@ -207,15 +194,37 @@ a{text-decoration:none}
 </style>
 </head>
 
-
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="logo">JS-FINDER</div>
-  <div class="sub">by PEXKIDDY</div>
-</div>
+  <div class="splash-terminal">
+    <div class="splash-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
 
+<pre class="ascii">
+
+    /$$$$$  /$$$$$$          /$$$$$$$$ /$$$$$$ /$$   /$$ /$$$$$$$  /$$$$$$$$ /$$$$$$$ 
+   |__  $$ /$$__  $$        | $$_____/|_  $$_/| $$$ | $$| $$__  $$| $$_____/| $$__  $$
+      | $$| $$  \__/        | $$        | $$  | $$$$| $$| $$  \ $$| $$      | $$  \ $$
+      | $$|  $$$$$$  /$$$$$$| $$$$$     | $$  | $$ $$ $$| $$  | $$| $$$$$   | $$$$$$$/
+ /$$  | $$ \____  $$|______/| $$__/     | $$  | $$  $$$$| $$  | $$| $$__/   | $$__  $$
+| $$  | $$ /$$  \ $$        | $$        | $$  | $$\  $$$| $$  | $$| $$      | $$  \ $$
+|  $$$$$$/|  $$$$$$/        | $$       /$$$$$$| $$ \  $$| $$$$$$$/| $$$$$$$$| $$  | $$
+ \______/  \______/         |__/      |______/|__/  \__/|_______/ |________/|__/  |__/
+                                                                                      
+                                                                                      
+                                                                                      </pre>
+
+    <div class="warning">
+      ⚠️ ONLY FOR EDUCATIONAL PURPOSE
+            ~ BY PEXKIDDY
+    </div>
+  </div>
+</div>
 
 
 <!-- MAIN APP -->
@@ -223,7 +232,6 @@ a{text-decoration:none}
 
   <!-- LEFT TERMINAL -->
   <div class="terminal green-box">
-
     <div class="term-header">
       <div class="left">
         <div class="dot red"></div>
@@ -231,7 +239,6 @@ a{text-decoration:none}
         <div class="dot green"></div>
         <span class="title">scanner@finder</span>
       </div>
-
       <span class="download" onclick="downloadFile()">⬇</span>
     </div>
 
@@ -241,16 +248,12 @@ a{text-decoration:none}
         <input id="domain" placeholder="target.com">
         <button onclick="scan()">RUN</button>
       </div>
-
       <div id="out" class="output">Waiting...</div>
     </div>
   </div>
 
-
-
   <!-- RIGHT TERMINAL -->
   <div id="blueBox" class="terminal blue-box">
-
     <div class="term-header">
       <div class="left">
         <div class="dot red"></div>
@@ -261,40 +264,31 @@ a{text-decoration:none}
     </div>
 
     <div class="term-body">
-      <div id="info" class="output">
-        Domain: -
-      </div>
+      <div id="info" class="output">Domain: -</div>
     </div>
   </div>
 
 </div>
 
 
-
 <script>
 
 let allResults=[];
 
-/* splash */
 setTimeout(()=>{
   splash.style.display="none";
   app.style.display="flex";
-},5000);
+},4000);
 
-
-/* enter key */
 domain.addEventListener("keydown",e=>{
   if(e.key==="Enter") scan();
 });
-
 
 const sensitiveWords=[
   "config","env","secret","key","token",
   "auth","admin","backup","private","prod"
 ];
 
-
-/* SCAN */
 async function scan(){
 
   const d=domain.value.trim();
@@ -304,15 +298,12 @@ async function scan(){
 
   out.innerHTML="$ scanning "+url+" ...<br>";
   info.innerHTML="Domain: "+url+"<br>Scanning...";
-
   blueBox.classList.remove("alert-box");
 
   try{
-
     const proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(url);
     const res=await fetch(proxy);
     const html=await res.text();
-
     const doc=new DOMParser().parseFromString(html,"text/html");
 
     const set=new Set();
@@ -343,26 +334,20 @@ async function scan(){
 
     if(suspects.length===0){
       info.innerHTML+="None detected.";
-    }
-    else{
+    } else{
       blueBox.classList.add("alert-box");
-
       suspects.forEach(s=>{
         info.innerHTML+="⚠ <a href='"+s+"' target='_blank'>"+s+"</a><br>";
       });
     }
 
-  }
-  catch{
+  } catch{
     out.innerHTML+="[-] Blocked by site/CORS.";
   }
 }
 
-
-/* DOWNLOAD */
 function downloadFile(){
   if(!allResults.length) return;
-
   const blob=new Blob([allResults.join("\n")]);
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
