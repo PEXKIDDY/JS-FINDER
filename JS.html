@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JS-FINDER</title>
+
+<style>
+
+/* ================= GLOBAL ================= */
+body{
+  margin:0;
+  height:100vh;
+  background:#0b0f14;
+  font-family:"Courier New", monospace;
+  overflow:hidden;
+}
+
+/* ================= SPLASH ================= */
+#splash{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#0b0f14;
+  color:#00ff88;
+  z-index:999;
+}
+
+.logo{
+  font-size:72px;
+  font-weight:bold;
+  text-shadow:0 0 25px #00ff88;
+  animation:slide 5s linear forwards;
+}
+
+.sub{opacity:.7;margin-top:8px;}
+
+@keyframes slide{
+  0%{transform:translateX(-120%);opacity:0}
+  20%{opacity:1}
+  80%{transform:translateX(0)}
+  100%{transform:translateX(120%);opacity:0}
+}
+
+
+/* ================= LAYOUT ================= */
+#app{
+  display:none;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:28px;
+}
+
+
+/* ================= TERMINAL ================= */
+.terminal{
+  width:560px;
+  height:560px;
+  display:flex;
+  flex-direction:column;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+
+/* header */
+.term-header{
+  background:#111;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+}
+.red{background:#ff5f56;}
+.yellow{background:#ffbd2e;}
+.green{background:#27c93f;}
+
+.title{
+  margin-left:10px;
+  font-size:13px;
+  opacity:.85;
+}
+
+.download{
+  cursor:pointer;
+  font-size:16px;
+  opacity:.6;
+}
+.download:hover{opacity:1;}
+
+
+/* body */
+.term-body{
+  padding:14px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:0; /* IMPORTANT FOR SCROLL */
+}
+
+
+/* input */
+input{
+  width:70%;
+  padding:8px;
+  background:#000;
+  border-radius:6px;
+  font-family:inherit;
+}
+
+/* button */
+button{
+  padding:8px 14px;
+  margin-left:6px;
+  cursor:pointer;
+  border-radius:6px;
+  font-family:inherit;
+}
+
+
+/* ================= OUTPUT + SCROLL FIX ================= */
+
+.output{
+  margin-top:12px;
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  font-size:14px;
+  padding:10px;
+  background:#000;
+  min-height:0;
+}
+
+/* Hide scrollbar Chrome/Safari/Edge */
+.output::-webkit-scrollbar{
+  width:0px;
+  height:0px;
+}
+
+/* Hide scrollbar Firefox */
+.output{
+  scrollbar-width:none;
+}
+
+/* Hide scrollbar IE */
+.output{
+  -ms-overflow-style:none;
+}
+
+a{text-decoration:none}
+
+
+/* ================= COLORS ================= */
+
+/* LEFT ALWAYS GREEN */
+.green-box{
+  color:#00ff88;
+  border:1px solid #003322;
+  box-shadow:0 0 20px #00ff88, inset 0 0 40px #001a0f;
+}
+.green-box input,
+.green-box button{
+  border:1px solid #00ff88;
+  color:#00ff88;
+  background:#001a10;
+}
+.green-box a{
+  color:#00ff88 !important;
+}
+
+
+/* RIGHT DEFAULT BLUE */
+.blue-box{
+  color:#00bfff;
+  border:1px solid #003355;
+  box-shadow:0 0 20px #00bfff, inset 0 0 40px #001a2b;
+}
+.blue-box a{
+  color:inherit !important;
+}
+
+
+/* ALERT RED */
+.alert-box{
+  color:#ff3b3b !important;
+  border:1px solid #550000 !important;
+  box-shadow:0 0 25px #ff0000, inset 0 0 40px #2b0000 !important;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="logo">JS-FINDER</div>
+  <div class="sub">by PEXKIDDY</div>
+</div>
+
+
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- LEFT TERMINAL -->
+  <div class="terminal green-box">
+
+    <div class="term-header">
+      <div class="left">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="title">scanner@finder</span>
+      </div>
+
+      <span class="download" onclick="downloadFile()">⬇</span>
+    </div>
+
+    <div class="term-body">
+      <div>
+        $ scan
+        <input id="domain" placeholder="target.com">
+        <button onclick="scan()">RUN</button>
+      </div>
+
+      <div id="out" class="output">Waiting...</div>
+    </div>
+  </div>
+
+
+
+  <!-- RIGHT TERMINAL -->
+  <div id="blueBox" class="terminal blue-box">
+
+    <div class="term-header">
+      <div class="left">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="title">sensitive@finder</span>
+      </div>
+    </div>
+
+    <div class="term-body">
+      <div id="info" class="output">
+        Domain: -
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<script>
+
+let allResults=[];
+
+/* splash */
+setTimeout(()=>{
+  splash.style.display="none";
+  app.style.display="flex";
+},5000);
+
+
+/* enter key */
+domain.addEventListener("keydown",e=>{
+  if(e.key==="Enter") scan();
+});
+
+
+const sensitiveWords=[
+  "config","env","secret","key","token",
+  "auth","admin","backup","private","prod"
+];
+
+
+/* SCAN */
+async function scan(){
+
+  const d=domain.value.trim();
+  if(!d) return;
+
+  const url=d.startsWith("http")?d:"https://"+d;
+
+  out.innerHTML="$ scanning "+url+" ...<br>";
+  info.innerHTML="Domain: "+url+"<br>Scanning...";
+
+  blueBox.classList.remove("alert-box");
+
+  try{
+
+    const proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(url);
+    const res=await fetch(proxy);
+    const html=await res.text();
+
+    const doc=new DOMParser().parseFromString(html,"text/html");
+
+    const set=new Set();
+
+    doc.querySelectorAll("script[src]").forEach(s=>{
+      let src=s.getAttribute("src");
+
+      if(src.startsWith("//")) src="https:"+src;
+      else if(src.startsWith("/")) src=new URL(src,url).href;
+
+      if(src.includes(".js")) set.add(src);
+    });
+
+    allResults=[...set];
+
+    allResults.forEach(r=>{
+      out.innerHTML+="[+] <a href='"+r+"' target='_blank'>"+r+"</a><br>";
+    });
+
+    const suspects=allResults.filter(link =>
+      sensitiveWords.some(w=>link.toLowerCase().includes(w))
+    );
+
+    info.innerHTML =
+      "Domain: "+url+"<br>"+
+      "Files Found: "+allResults.length+"<br><br>"+
+      "Possible Sensitive:<br><br>";
+
+    if(suspects.length===0){
+      info.innerHTML+="None detected.";
+    }
+    else{
+      blueBox.classList.add("alert-box");
+
+      suspects.forEach(s=>{
+        info.innerHTML+="⚠ <a href='"+s+"' target='_blank'>"+s+"</a><br>";
+      });
+    }
+
+  }
+  catch{
+    out.innerHTML+="[-] Blocked by site/CORS.";
+  }
+}
+
+
+/* DOWNLOAD */
+function downloadFile(){
+  if(!allResults.length) return;
+
+  const blob=new Blob([allResults.join("\n")]);
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="js-links.txt";
+  a.click();
+}
+
+</script>
+
+</body>
+</html>
